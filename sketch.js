@@ -56,3 +56,38 @@ function makeCircles ()
   ellipse(1000,625,150,150);
 }
 
+var circleX = [];
+var circleY = [];
+
+function setup() 
+{
+  createCanvas(1250, 750);
+  for (var y = 0; y < height/80; y++)
+  {
+    for (var x = 0; x < width/80; x++)
+    {
+      circleX.push(x*80+40);
+      circleY.push(y*80+40);
+    }
+  }
+}
+
+function draw() 
+{
+  background(0);
+  for ( var i = 0; i < circleX.length; i++)
+  {
+    if ( dist(mouseX, mouseY, circleX[i], circleY[i]) < 40  && mouseIsPressed)
+    {
+      circleX[i] = mouseX;
+      circleY[i] = mouseY;
+      fill(255,0,0); 
+    }
+    else
+    {
+      fill(255);
+    }
+      ellipse(circleX[i], circleY[i], 80, 80);
+  }
+}
+
