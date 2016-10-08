@@ -1,20 +1,33 @@
+var text1 = "Move the Black Circle Through the Colored Circles";
 var circleX = [];
 var circleY = [];
-var numCircles = 10;
-var text1 = "Click Anywhere to play whack-a-color... Do not hit empty circles.";
+var positionX = 75;
+var positionY = 375;
+
+
 
 function setup() 
 {
   createCanvas(1250,750);
   background(0);
-  circleX = numCircles; 
-  circleY = numCircles; 
+  for (var y = 0; y < height/150; y++)
+  {
+    for (var x = 0; x < width/150; x++)
+    {
+      circleX.push(x*150+275);
+      circleY.push(y*150+80);
+    }
+  }
 }
 
 function draw() 
 {
+  hitCircles();
   startScreen();
+  if (mouseIsPressed)
+  {
   makeCircles();
+  }
 }
 
 function startScreen()
@@ -26,68 +39,67 @@ function startScreen()
   text(text1,300,300,700,500);
 }
 
-function mousePressed()
-{
-  background(255);
-}
-
-function makeCircles ()
-{
-  fill(0)
-  ellipse(200,100,150,150);
-  ellipse(400,100,150,150);
-  ellipse(600,100,150,150);
-  ellipse(800,100,150,150);
-  ellipse(1000,100,150,150);
-  ellipse(200,275,150,150);
-  ellipse(200,450,150,150);
-  ellipse(200,625,150,150);
-  ellipse(400,275,150,150);
-  ellipse(600,275,150,150);
-  ellipse(800,275,150,150);
-  ellipse(1000,275,150,150);
-  ellipse(400,450,150,150);
-  ellipse(600,450,150,150);
-  ellipse(800,450,150,150);
-  ellipse(1000,450,150,150);
-  ellipse(400,625,150,150);
-  ellipse(600,625,150,150);
-  ellipse(800,625,150,150);
-  ellipse(1000,625,150,150);
-}
-
-var circleX = [];
-var circleY = [];
-
-function setup() 
-{
-  createCanvas(1250, 750);
-  for (var y = 0; y < height/80; y++)
-  {
-    for (var x = 0; x < width/80; x++)
-    {
-      circleX.push(x*80+40);
-      circleY.push(y*80+40);
-    }
-  }
-}
-
-function draw() 
+function makeCircles()
 {
   background(0);
   for ( var i = 0; i < circleX.length; i++)
   {
-    if ( dist(mouseX, mouseY, circleX[i], circleY[i]) < 40  && mouseIsPressed)
-    {
-      circleX[i] = mouseX;
-      circleY[i] = mouseY;
-      fill(255,0,0); 
-    }
-    else
-    {
-      fill(255);
-    }
-      ellipse(circleX[i], circleY[i], 80, 80);
+    fill(random(0,256), random(0,256), random(0,256));
+    ellipse(circleX[i], circleY[i], 150, 150);
   }
 }
+
+function hitCircles()
+{
+  fill(255);
+  ellipse(positionX,positionY,70,70)
+  if (keyIsDown(UP_ARROW)) 
+  {
+    positionY -= 4;
+  }
+
+  if (keyIsDown(DOWN_ARROW)) 
+  {
+    positionY += 4;
+  }
+  if (keyIsDown(LEFT_ARROW)) 
+  {
+    positionX -= 4;
+  }
+
+  if (keyIsDown(RIGHT_ARROW)) 
+  {
+    positionX += 4;
+  }
+  var leftSide   = positionX - 35;
+  var rightSide  = positionX + 35;
+  var topSide    = positionY - 35;
+  var bottomSide = positionY + 35;
+
+  for (var i = 0; i < circleX.length; i++) 
+  {
+    if (leftSide < circleX[i] + 70 && leftSide > circleX[i] ||
+       rightSide < circleX[i] + 70 && rightSide > circleX[i]) 
+      {
+        if  (topSide > circleY[i] + 70 && topSide < circleY[i] ||
+          bottomSide > circleY[i] && bottomSide < circleY[i] + 70)
+        {
+         circleX;
+         fill(0);
+        }
+      }
+}
+}
+
+
+
+
+
+
+
+
+  
+
+
+
 
