@@ -1,8 +1,9 @@
-var text1 = "Move the Black Circle Through the Colored Circles";
+var text1 = "Move the White Circle Through the Colored Circles";
 var circleX = [];
 var circleY = [];
 var positionX = 75;
 var positionY = 375;
+var circleColor = [];
 
 
 
@@ -16,8 +17,10 @@ function setup()
     {
       circleX.push(x*150+275);
       circleY.push(y*150+80);
+      circleColor.push(color(random(0,256), random(0,256), random(0,256)));
     }
   }
+  
 }
 
 function draw() 
@@ -44,13 +47,14 @@ function makeCircles()
   background(0);
   for ( var i = 0; i < circleX.length; i++)
   {
-    fill(random(0,256), random(0,256), random(0,256));
+    fill(circleColor[i]);
     ellipse(circleX[i], circleY[i], 150, 150);
   }
 }
 
 function hitCircles()
 {
+  background(0);
   fill(255);
   ellipse(positionX,positionY,70,70)
   if (keyIsDown(UP_ARROW)) 
@@ -71,27 +75,19 @@ function hitCircles()
   {
     positionX += 4;
   }
-  var leftSide   = positionX - 35;
-  var rightSide  = positionX + 35;
-  var topSide    = positionY - 35;
-  var bottomSide = positionY + 35;
-
-  for (var i = 0; i < circleX.length; i++) 
+  for ( var i = 0; i < circleX.length; i++)
   {
-    if (leftSide < circleX[i] + 70 && leftSide > circleX[i] ||
-       rightSide < circleX[i] + 70 && rightSide > circleX[i]) 
-      {
-        if  (topSide > circleY[i] + 70 && topSide < circleY[i] ||
-          bottomSide > circleY[i] && bottomSide < circleY[i] + 70)
-        {
-         circleX;
-         fill(0);
-        }
-      }
-}
+  if (dist(positionX,positionY,circleX[i],circleY[i]) < 110)
+  {
+    circleColor[i] = color(255);
+  }
+  }
 }
 
-
+//1. Make the array of circles 
+//2. Assign the colors. 
+//3. Color the circles using the fill() function 
+//5. Change the colors to 255 when collides. 
 
 
 
